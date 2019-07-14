@@ -1,26 +1,26 @@
 import React, { Fragment, useState } from "react";
 import Moment from "react-moment";
 import jsonData from "./sample_data.json";
-import { ReactComponent as ClockSVG } from "./clock.svg";
-import { ReactComponent as CalendarSVG } from "./calendar.svg";
-import { ReactComponent as PinSVG } from "./pin.svg";
-import { ReactComponent as ToolTipSVG } from "./tooltip.svg";
-import { ReactComponent as StarSVG } from "./star.svg";
-// import { ReactComponent as StarHalfSVG } from "./star-half.svg";
+import { ReactComponent as ClockSVG } from "./svg/clock.svg";
+import { ReactComponent as CalendarSVG } from "./svg/calendar.svg";
+import { ReactComponent as PinSVG } from "./svg/pin.svg";
+import { ReactComponent as ToolTipSVG } from "./svg/tooltip.svg";
+import { ReactComponent as StarSVG } from "./svg/star.svg";
 
-const numberWithCommas = (val) => {
-  return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const placesCount = val => {
+  return `+${val.slice(6).length} more`;
 }
 
-const hidePlaces = (val) => {
-  return val.slice(0, 6).join(", ");
+const hidePlaces = val => {
+  return `${val.slice(0, 6).join(", ")}...` 
+  ;
 }
 
-const revealPlaces = (val) => {
+const revealPlaces = val => {
   return val.join(', ')
 }
 
-function render4Stars() {
+const render4Stars = () => {
   return (
     <span>
       <StarSVG />
@@ -31,19 +31,18 @@ function render4Stars() {
   );
 }
 
-function render4AndAHalfStars() {
+const render4AndAHalfStars = () => {
   return (
     <span className='star-half'>
       <StarSVG />
       <StarSVG />
       <StarSVG />
       <StarSVG />
-      {/* <StarHalfSVG /> */}
     </span>
   );
 }
 
-function render5Stars() {
+const render5Stars = () => {
   return (
     <span>
       <StarSVG />
@@ -55,101 +54,110 @@ function render5Stars() {
   );
 }
 
+const numberWithCommas = val => {
+  return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+} 
+
 const App = () => {
   const [click, setClick] = useState(false);
-  const toggleClick = () => setClick(!click);
+  
 
+  const toggleClick = index => e => {
+    setClick(!click)
+    };
+    
   return (
     <Fragment>
-      
       <h2 className='heading'>Select a Tour</h2>
       <p className='subheading'>
         <span>3 tours</span> found
       </p>
+      <div className='container'>
 
-      {jsonData.results.map(
-        (
-          {
-            tour_name,
-            image,
-            operator,
-            logo,
-            date_start,
-            date_end,
-            duration,
-            itinerary,
-            price,
-            rating
-          },
-          index
-        ) => (
-          
-          <div className='card' key={index}>
-            <div className='card__img'>
-              <img className='card__img--main' src={image} alt={tour_name} />
-              <img className='card__img--logo' src={operator[0].logo} alt={operator[0].name} />
-            </div>
-            <div className='card__content'>
-              <div className='card__title'>{tour_name}</div>
-              <div className='card__rating'>
-                {rating === 4
-                  ? (render4Stars())
-                  : rating === 4.5
-                  ? render4AndAHalfStars()
-                  : rating === 5
-                  ? render5Stars()
-                  : null}
-              </div>
-              <div>
-                <span className='p-1'>
-                  <CalendarSVG />
-                </span>
-                <Moment format='DD MMM YYYY'>{date_start}</Moment> -{" "}
-                <Moment format='DD MMM YYYY'>{date_end}</Moment>
+        {jsonData.results.map(
+          (
+            {
+              tour_name,
+              image,
+              operator,
+              logo,
+              date_start,
+              date_end,
+              duration,
+              itinerary,
+              price,
+              rating
+            },
+            index
+          ) => (
+            
+            <div className='card' key={index}>
+              <div className='card__img'>
+                <img className='card__img--main' src={image} alt={tour_name} />
+                <img className='card__img--logo' src={operator[0].logo} alt={operator[0].name} />
               </div>
 
-              <div className='card__content--days'>
-                <span className='p-1'>
-                  <ClockSVG />
-                </span>
-                {""}
-                {duration} days
-              </div>
-
-              <div className='card__content--itinerary'>
-                <span className='p-2'>
-                  <PinSVG />
-                </span>
-                <span className={click ? 'hide' : 'reveal'}>{hidePlaces(itinerary)}...</span>
-                <span className={click ? 'reveal' : 'hide'}>{revealPlaces(itinerary)}</span>
-                <button onClick={toggleClick} className='show-tours'>{click ? '- less' : '+ more'}</button>
-              </div>
-
-              <hr />
-
-              <div className='card__content--info'>
-                <div className='tip'>
-                  <span>from</span>
-                  <ToolTipSVG tabIndex='1' />
-                  <div className='tip__modal'>
-                    <p>Prices are per person and in Australian Dollars</p>
-                  </div>
-                  <div className='price'>
-                    <span>$</span>
-                    {numberWithCommas(price)}
-                  </div>
+              <div className='card__content'>
+                <div className='card__title'>{tour_name}</div>
+                <div className='card__rating'>
+                  {rating === 4
+                    ? (render4Stars())
+                    : rating === 4.5
+                    ? render4AndAHalfStars()
+                    : rating === 5
+                    ? render5Stars()
+                    : null}
                 </div>
                 <div>
-                  <button className='card__content--info view'>
-                    view tour
-                  </button>
+                  <span className='p-1'>
+                    <CalendarSVG />
+                  </span>
+                  <Moment format='DD MMM YYYY'>{date_start}</Moment> -{" "}
+                  <Moment format='DD MMM YYYY'>{date_end}</Moment>
+                </div>
+
+                <div className='card__days'>
+                  <span className='p-1'>
+                    <ClockSVG />
+                  </span>
+                  {""}
+                  {duration} days
+                </div>
+
+                <div className='card__itinerary'>
+                  <span className='p-2'>
+                    <PinSVG />
+                  </span>
+                  <span className={click ? 'hide' : 'reveal'}>{hidePlaces(itinerary)}</span>
+                  <span className={click ? 'reveal' : 'hide'}>{revealPlaces(itinerary)}</span>
+                  <button  onClick={toggleClick(index)} className='show-tours'>{click ? '-' : `${placesCount(itinerary)}`}</button>
+                </div>
+
+                <hr />
+
+                <div className='card__info'>
+                  <div className='tip'>
+                    <span>from</span>
+                    <ToolTipSVG tabIndex='1' />
+                    <div className='tip__modal'>
+                      <p>Prices are per person and in Australian Dollars</p>
+                    </div>
+                    <div className='price'>
+                      <span>$</span>
+                      {numberWithCommas(price)}
+                    </div>
+                  </div>
+                  <div>
+                    <button>
+                      view tour
+                    </button>
+                  </div>
                 </div>
               </div>
-
             </div>
-          </div>
-        )
-      )}
+          )
+        )}
+      </div>
     </Fragment>
   );
 };
