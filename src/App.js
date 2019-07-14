@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, Component } from "react";
 import Moment from "react-moment";
 import jsonData from "./sample_data.json";
 import { ReactComponent as ClockSVG } from "./svg/clock.svg";
@@ -9,16 +9,15 @@ import { ReactComponent as StarSVG } from "./svg/star.svg";
 
 const placesCount = val => {
   return `+${val.slice(6).length} more`;
-}
+};
 
 const hidePlaces = val => {
-  return `${val.slice(0, 6).join(", ")}...` 
-  ;
-}
+  return `${val.slice(0, 6).join(", ")}...`;
+};
 
 const revealPlaces = val => {
-  return val.join(', ')
-}
+  return val.join(", ");
+};
 
 const render4Stars = () => {
   return (
@@ -29,7 +28,7 @@ const render4Stars = () => {
       <StarSVG />
     </span>
   );
-}
+};
 
 const render4AndAHalfStars = () => {
   return (
@@ -40,7 +39,7 @@ const render4AndAHalfStars = () => {
       <StarSVG />
     </span>
   );
-}
+};
 
 const render5Stars = () => {
   return (
@@ -52,56 +51,50 @@ const render5Stars = () => {
       <StarSVG />
     </span>
   );
-}
+};
 
 const numberWithCommas = val => {
   return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-} 
+};
 
-const App = () => {
-  const [click, setClick] = useState(false);
-  
+class App extends Component {
+  state = {
+    open: {}
+  };
 
-  const toggleClick = index => e => {
-    setClick(!click)
-    };
-    
-  return (
-    <Fragment>
-      <h2 className='heading'>Select a Tour</h2>
-      <p className='subheading'>
-        <span>3 tours</span> found
-      </p>
-      <div className='container'>
+  toggleClick(index) {
+    this.setState(state => ({
+      open: { ...state.open, [index]: !state.open[index] }
+    }));
+  }
 
-        {jsonData.results.map(
-          (
-            {
-              tour_name,
-              image,
-              operator,
-              logo,
-              date_start,
-              date_end,
-              duration,
-              itinerary,
-              price,
-              rating
-            },
-            index
-          ) => (
-            
+  render() {
+    return (
+      <Fragment>
+        <header>
+          <h2>Select a Tour</h2>
+          <p>
+            <span>3 tours</span> found
+          </p>
+        </header>
+        <div className='cards'>
+          {jsonData.results.map(({ tour_name, image, operator,
+            date_start, date_end, duration, itinerary, price, rating }, index) => (
             <div className='card' key={index}>
               <div className='card__img'>
                 <img className='card__img--main' src={image} alt={tour_name} />
-                <img className='card__img--logo' src={operator[0].logo} alt={operator[0].name} />
+                <img
+                  className='card__img--logo'
+                  src={operator[0].logo}
+                  alt={operator[0].name}
+                />
               </div>
 
               <div className='card__content'>
                 <div className='card__title'>{tour_name}</div>
                 <div className='card__rating'>
                   {rating === 4
-                    ? (render4Stars())
+                    ? render4Stars()
                     : rating === 4.5
                     ? render4AndAHalfStars()
                     : rating === 5
@@ -128,9 +121,18 @@ const App = () => {
                   <span className='p-2'>
                     <PinSVG />
                   </span>
-                  <span className={click ? 'hide' : 'reveal'}>{hidePlaces(itinerary)}</span>
-                  <span className={click ? 'reveal' : 'hide'}>{revealPlaces(itinerary)}</span>
-                  <button  onClick={toggleClick(index)} className='show-tours'>{click ? '-' : `${placesCount(itinerary)}`}</button>
+                  <span className={this.state.open[index] ? "hide" : "reveal"}>
+                    {hidePlaces(itinerary)}
+                  </span>
+                  <span className={this.state.open[index] ? "reveal" : "hide"}>
+                    {revealPlaces(itinerary)}
+                  </span>
+                  <button
+                    onClick={e => this.toggleClick(index)}
+                    className='show-tours'
+                  >
+                    {this.state.open[index] ? "-" : `${placesCount(itinerary)}`}
+                  </button>
                 </div>
 
                 <hr />
@@ -148,18 +150,16 @@ const App = () => {
                     </div>
                   </div>
                   <div>
-                    <button>
-                      view tour
-                    </button>
+                    <button>view tour</button>
                   </div>
                 </div>
               </div>
             </div>
-          )
-        )}
-      </div>
-    </Fragment>
-  );
-};
+          ))}
+        </div>
+      </Fragment>
+    );
+  }
+}
 
 export default App;
