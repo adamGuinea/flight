@@ -40,19 +40,18 @@ hr {
   display: inline-block;
   content: url("../svg/star-half.svg"); }
 
-.heading {
-  display: block;
-  font-weight: 400;
-  margin-left: 15rem; }
+header {
+  text-align: left; }
+  header h2 {
+    display: block;
+    font-weight: 400; }
+  header p {
+    text-align: left;
+    font-size: 1.3rem; }
+    header p span {
+      font-weight: 500; }
 
-.subheading {
-  text-align: left;
-  margin-left: 15rem;
-  font-size: 1.3rem; }
-  .subheading span {
-    font-weight: 500; }
-
-.container {
+.cards {
   text-align: center; }
 
 .card {
@@ -62,7 +61,7 @@ hr {
   width: 30rem;
   overflow: auto;
   min-width: 24rem;
-  margin: 2rem;
+  margin: 1.6rem;
   background: #ffffff;
   border-radius: 3px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2); }
@@ -82,7 +81,7 @@ hr {
   .card__title {
     font-size: 1.6rem;
     font-weight: 450;
-    padding-top: .5rem;
+    padding-top: 0.5rem;
     margin: 0; }
   .card__content {
     position: relative;
@@ -100,7 +99,7 @@ hr {
     .card__itinerary .show-tours {
       color: #0072ea;
       font-size: 1.2rem;
-      padding-left: .5rem;
+      padding-left: 0.5rem;
       font-style: bold;
       border: none;
       cursor: pointer; }
@@ -126,15 +125,15 @@ hr {
         position: absolute;
         background-color: #080808;
         width: 20rem;
-        opacity: .85;
-        padding: .9rem;
+        opacity: 0.85;
+        padding: 0.9rem;
         border-radius: 2px;
         line-height: 1.4;
         font-weight: 300;
         color: #fff;
         font-size: 1.3rem;
         bottom: 7.3rem;
-        left: 1.8rem;
+        left: 0;
         z-index: 10; }
       .card__info .tip span {
         font-size: 1.2rem;
