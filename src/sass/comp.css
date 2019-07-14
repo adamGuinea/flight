@@ -30,31 +30,41 @@ hr {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
 
+.hide {
+  display: none; }
+
+.reveal {
+  display: inline; }
+
+.star-half::after {
+  display: inline-block;
+  content: url("../svg/star-half.svg"); }
+
 .heading {
   display: block;
   font-weight: 400;
-  margin-left: 2rem; }
+  margin-left: 15rem; }
 
 .subheading {
-  margin-left: 2rem;
+  text-align: left;
+  margin-left: 15rem;
   font-size: 1.3rem; }
   .subheading span {
     font-weight: 500; }
 
-.star-half::after {
-  display: inline-block;
-  content: url("../star-half.svg"); }
+.container {
+  text-align: center; }
 
 .card {
   display: inline-block;
   position: relative;
+  text-align: left;
   width: 30rem;
   overflow: auto;
   min-width: 24rem;
   margin: 2rem;
-  border: 1px solid rgba(160, 160, 160, 0.2);
   background: #ffffff;
-  border-radius: 0 0 2px 2px;
+  border-radius: 3px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2); }
   .card__img {
     position: relative;
@@ -70,90 +80,88 @@ hr {
       width: 30%;
       height: 4rem; }
   .card__title {
-    font-size: 1.8rem;
-    font-weight: 500;
+    font-size: 1.6rem;
+    font-weight: 450;
+    padding-top: .5rem;
     margin: 0; }
   .card__content {
     position: relative;
     padding: 0 1.3rem;
     font-size: 1.2rem;
     font-weight: 400; }
-    .card__content--days .icon {
-      height: 2.25rem;
-      fill: #333;
-      width: 2.25rem;
-      z-index: 10000; }
-    .card__content--itinerary {
-      word-wrap: break-word;
-      line-height: 1.8rem; }
-      .card__content--itinerary .show-tours {
-        color: #0072ea;
-        font-size: 1.2rem;
-        padding-left: .5rem;
-        font-style: bold;
-        border: none;
-        cursor: pointer; }
-      .card__content--itinerary .show-tours:focus {
-        outline: none; }
-      .card__content--itinerary .hide {
-        display: none; }
-      .card__content--itinerary .reveal {
-        display: inline; }
-    .card__content::first-child {
-      margin-right: 0.5rem; }
-    .card__content--info {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 0 1rem 1rem; }
-      .card__content--info .tip {
-        font-size: 1.4rem; }
-        .card__content--info .tip svg {
-          cursor: pointer;
-          outline: none; }
-        .card__content--info .tip svg:hover ~ .tip__modal {
-          display: block; }
-        .card__content--info .tip__modal {
-          display: none;
-          position: absolute;
-          background-color: #080808;
-          width: 20rem;
-          opacity: .85;
-          padding: .9rem;
-          border-radius: 2px;
-          line-height: 1.4;
-          font-weight: 300;
-          color: #fff;
-          font-size: 1.3rem;
-          bottom: 7.3rem;
-          left: 1.8rem;
-          z-index: 10; }
-        .card__content--info .tip span {
-          font-size: 1.2rem;
-          margin-right: 0.3rem;
-          color: #9aa2a9; }
-        .card__content--info .tip .price {
-          position: relative;
-          padding-left: 0.7rem;
-          font-weight: 500;
-          font-size: 2.5rem; }
-          .card__content--info .tip .price span {
-            position: absolute;
-            color: #000000;
-            top: -1rem;
-            left: 0;
-            font-weight: 400;
-            font-size: 1.2rem; }
-      .card__content--info .view {
-        color: #fff;
-        font-size: 1.5rem;
-        padding: 1.3rem;
-        text-transform: uppercase;
-        background-color: #0072ea;
+  .card__days .icon {
+    height: 2.25rem;
+    fill: #333;
+    width: 2.25rem;
+    z-index: 10000; }
+  .card__itinerary {
+    word-wrap: break-word;
+    line-height: 1.8rem; }
+    .card__itinerary .show-tours {
+      color: #0072ea;
+      font-size: 1.2rem;
+      padding-left: .5rem;
+      font-style: bold;
+      border: none;
+      cursor: pointer; }
+    .card__itinerary .show-tours:focus {
+      outline: none; }
+  .card::first-child {
+    margin-right: 0.5rem; }
+  .card__info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 1rem 0; }
+    .card__info .tip {
+      font-size: 1.4rem; }
+      .card__info .tip svg {
         cursor: pointer;
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3); }
-      .card__content--info .view:focus {
-        background: #5521f3;
-        outline: none;
-        transition: all 0.5s; }
+        outline: none; }
+      .card__info .tip svg:hover ~ .tip__modal {
+        display: block; }
+      .card__info .tip__modal {
+        display: none;
+        position: absolute;
+        background-color: #080808;
+        width: 20rem;
+        opacity: .85;
+        padding: .9rem;
+        border-radius: 2px;
+        line-height: 1.4;
+        font-weight: 300;
+        color: #fff;
+        font-size: 1.3rem;
+        bottom: 7.3rem;
+        left: 1.8rem;
+        z-index: 10; }
+      .card__info .tip span {
+        font-size: 1.2rem;
+        margin-right: 0.3rem;
+        color: #9aa2a9; }
+      .card__info .tip .price {
+        position: relative;
+        padding-left: 0.7rem;
+        font-weight: 600;
+        font-size: 2.4rem; }
+        .card__info .tip .price span {
+          position: absolute;
+          color: #000000;
+          top: -1rem;
+          left: 0;
+          font-weight: 400;
+          font-size: 1.2rem; }
+    .card__info button {
+      color: #fff;
+      font-size: 1.5rem;
+      padding: 1.3rem;
+      text-transform: uppercase;
+      background-color: #0072ea;
+      cursor: pointer;
+      border-radius: 3px;
+      box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3); }
+    .card__info button:focus {
+      background: #5521f3;
+      outline: none;
+      transition: all 0.5s; }
